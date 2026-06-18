@@ -59,6 +59,11 @@ public class TentBlock extends BedBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return TentShapes.MAT;
+        return TentShapes.get(state.getValue(PART), state.getValue(FACING));
+    }
+
+    @Override
+    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return TentShapes.getSupport(state.getValue(PART), state.getValue(FACING));
     }
 }
