@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.leclowndu93150.hlsubstance.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "hlsubstance.refmap.json",
+  "mixins": [
+    "ServerPlayerSetSpawnMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

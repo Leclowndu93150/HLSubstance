@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "hlsubstance:white_tent",
+    "hlsubstance:light_gray_tent",
+    "hlsubstance:gray_tent",
+    "hlsubstance:black_tent",
+    "hlsubstance:brown_tent",
+    "hlsubstance:red_tent",
+    "hlsubstance:orange_tent",
+    "hlsubstance:yellow_tent",
+    "hlsubstance:lime_tent",
+    "hlsubstance:green_tent",
+    "hlsubstance:cyan_tent",
+    "hlsubstance:light_blue_tent",
+    "hlsubstance:blue_tent",
+    "hlsubstance:purple_tent",
+    "hlsubstance:magenta_tent",
+    "hlsubstance:pink_tent"
+  ]
+}

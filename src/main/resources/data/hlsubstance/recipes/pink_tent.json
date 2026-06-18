@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": false,
+  "pattern": [
+    "~#~",
+    "#O#",
+    "#B#"
+  ],
+  "key": {
+    "~": {
+      "item": "minecraft:string"
+    },
+    "#": {
+      "item": "minecraft:pink_carpet"
+    },
+    "O": {
+      "tag": "minecraft:wooden_fences"
+    },
+    "B": {
+      "item": "minecraft:pink_bed"
+    }
+  },
+  "result": {
+    "item": "hlsubstance:pink_tent"
+  }
+}

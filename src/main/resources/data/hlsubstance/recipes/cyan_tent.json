@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": false,
+  "pattern": [
+    "~#~",
+    "#O#",
+    "#B#"
+  ],
+  "key": {
+    "~": {
+      "item": "minecraft:string"
+    },
+    "#": {
+      "item": "minecraft:cyan_carpet"
+    },
+    "O": {
+      "tag": "minecraft:wooden_fences"
+    },
+    "B": {
+      "item": "minecraft:cyan_bed"
+    }
+  },
+  "result": {
+    "item": "hlsubstance:cyan_tent"
+  }
+}

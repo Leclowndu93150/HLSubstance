@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "show_notification": false,
+  "pattern": [
+    "~#~",
+    "#O#",
+    "#B#"
+  ],
+  "key": {
+    "~": {
+      "item": "minecraft:string"
+    },
+    "#": {
+      "item": "minecraft:yellow_carpet"
+    },
+    "O": {
+      "tag": "minecraft:wooden_fences"
+    },
+    "B": {
+      "item": "minecraft:yellow_bed"
+    }
+  },
+  "result": {
+    "item": "hlsubstance:yellow_tent"
+  }
+}

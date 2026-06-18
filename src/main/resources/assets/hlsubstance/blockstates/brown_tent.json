@@ -1,0 +1,52 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "part": "foot",
+        "facing": "south"
+      },
+      "apply": {
+        "model": "hlsubstance:block/brown_tent_foot",
+        "y": 0
+      }
+    },
+    {
+      "when": {
+        "part": "foot",
+        "facing": "west"
+      },
+      "apply": {
+        "model": "hlsubstance:block/brown_tent_foot",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "part": "foot",
+        "facing": "north"
+      },
+      "apply": {
+        "model": "hlsubstance:block/brown_tent_foot",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "part": "foot",
+        "facing": "east"
+      },
+      "apply": {
+        "model": "hlsubstance:block/brown_tent_foot",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "part": "head"
+      },
+      "apply": {
+        "model": "hlsubstance:block/brown_tent_head"
+      }
+    }
+  ]
+}
