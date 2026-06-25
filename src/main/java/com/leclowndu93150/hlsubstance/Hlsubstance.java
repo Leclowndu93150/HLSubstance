@@ -40,6 +40,7 @@ public class Hlsubstance {
         for (DyeColor color : DyeColor.values()) {
             String name = color.getName() + "_tent";
             Block vanillaBed = bedFor(color);
+            if (vanillaBed == null) continue;
             RegistryObject<Block> block = BLOCKS.register(name,
                     () -> new TentBlock(color, BlockBehaviour.Properties.copy(vanillaBed)
                             .mapColor(state -> state.getValue(TentBlock.PART) == BedPart.FOOT
@@ -60,29 +61,31 @@ public class Hlsubstance {
                     .icon(() -> TENT_ITEMS.get(DyeColor.ORANGE).get().getDefaultInstance())
                     .displayItems((params, output) -> {
                         for (DyeColor color : DyeColor.values()) {
-                            output.accept(TENT_ITEMS.get(color).get());
+                            RegistryObject<Item> item = TENT_ITEMS.get(color);
+                            if (item != null) output.accept(item.get());
                         }
                     })
                     .build());
 
     private static Block bedFor(DyeColor color) {
-        return switch (color) {
-            case WHITE -> Blocks.WHITE_BED;
-            case ORANGE -> Blocks.ORANGE_BED;
-            case MAGENTA -> Blocks.MAGENTA_BED;
-            case LIGHT_BLUE -> Blocks.LIGHT_BLUE_BED;
-            case YELLOW -> Blocks.YELLOW_BED;
-            case LIME -> Blocks.LIME_BED;
-            case PINK -> Blocks.PINK_BED;
-            case GRAY -> Blocks.GRAY_BED;
-            case LIGHT_GRAY -> Blocks.LIGHT_GRAY_BED;
-            case CYAN -> Blocks.CYAN_BED;
-            case PURPLE -> Blocks.PURPLE_BED;
-            case BLUE -> Blocks.BLUE_BED;
-            case BROWN -> Blocks.BROWN_BED;
-            case GREEN -> Blocks.GREEN_BED;
-            case RED -> Blocks.RED_BED;
-            case BLACK -> Blocks.BLACK_BED;
+        return switch (color.getId()) {
+            case 0 -> Blocks.WHITE_BED;
+            case 1 -> Blocks.ORANGE_BED;
+            case 2 -> Blocks.MAGENTA_BED;
+            case 3 -> Blocks.LIGHT_BLUE_BED;
+            case 4 -> Blocks.YELLOW_BED;
+            case 5 -> Blocks.LIME_BED;
+            case 6 -> Blocks.PINK_BED;
+            case 7 -> Blocks.GRAY_BED;
+            case 8 -> Blocks.LIGHT_GRAY_BED;
+            case 9 -> Blocks.CYAN_BED;
+            case 10 -> Blocks.PURPLE_BED;
+            case 11 -> Blocks.BLUE_BED;
+            case 12 -> Blocks.BROWN_BED;
+            case 13 -> Blocks.GREEN_BED;
+            case 14 -> Blocks.RED_BED;
+            case 15 -> Blocks.BLACK_BED;
+            default -> null;
         };
     }
 
