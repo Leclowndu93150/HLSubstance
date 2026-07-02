@@ -29,9 +29,12 @@ public final class TentSpawnTracker {
     private static final String KEY_ANGLE = "Angle";
     private static final String KEY_FORCED = "Forced";
 
+    private static final ThreadLocal<Boolean> RESTORING = ThreadLocal.withInitial(() -> false);
+
     private TentSpawnTracker() {}
 
     public static void beforeSetRespawn(ServerPlayer player, ResourceKey<Level> newDim, @Nullable BlockPos newSpawn) {
+        if (RESTORING.get()) return;
         if (newSpawn == null) {
             clearBackup(player);
             return;
@@ -45,10 +48,10 @@ public final class TentSpawnTracker {
         }
 
         BlockPos currentSpawn = player.getRespawnPosition();
+        if (currentSpawn == null) return;
         ResourceKey<Level> currentDim = player.getRespawnDimension();
         ServerLevel currentLevel = player.server.getLevel(currentDim);
-        boolean currentIsTent = currentSpawn != null
-                && currentLevel != null
+        boolean currentIsTent = currentLevel != null
                 && currentLevel.getBlockState(currentSpawn).getBlock() instanceof TentBlock;
 
         if (currentIsTent) return;
@@ -69,32 +72,32 @@ public final class TentSpawnTracker {
             if (!level.dimension().equals(player.getRespawnDimension())) continue;
             BlockPos respawn = player.getRespawnPosition();
             if (respawn == null) continue;
-            if (!isPartOfTent(level, headPos, respawn)) continue;
+            if (!isTentSpawn(level, headPos, respawn)) continue;
 
             BackupSpawn backup = readBackup(player);
-            if (backup != null && backup.pos != null) {
-                player.setRespawnPosition(backup.dim, backup.pos, backup.angle, backup.forced, false);
-            } else {
-                player.setRespawnPosition(Level.OVERWORLD, null, 0.0F, false, false);
+            RESTORING.set(true);
+            try {
+                if (backup != null && backup.pos != null) {
+                    player.setRespawnPosition(backup.dim, backup.pos, backup.angle, backup.forced, false);
+                } else {
+                    player.setRespawnPosition(Level.OVERWORLD, null, 0.0F, false, false);
+                }
+            } finally {
+                RESTORING.set(false);
             }
             clearBackup(player);
         }
     }
 
-    private static boolean isPartOfTent(ServerLevel level, BlockPos headPos, BlockPos candidate) {
+    private static boolean isTentSpawn(ServerLevel level, BlockPos headPos, BlockPos candidate) {
         if (candidate.equals(headPos)) return true;
-        BlockState head = level.getBlockState(headPos);
-        if (head.getBlock() instanceof TentBlock) {
-            BlockPos foot = headPos.relative(head.getValue(TentBlock.FACING).getOpposite());
-            if (candidate.equals(foot)) return true;
-        }
         BlockState candidateState = level.getBlockState(candidate);
-        if (candidateState.hasProperty(TentBlock.PART)
-                && candidateState.getValue(TentBlock.PART) == BedPart.FOOT
-                && candidate.relative(candidateState.getValue(TentBlock.FACING)).equals(headPos)) {
-            return true;
-        }
-        return candidate.distSqr(headPos) <= 2;
+        if (!(candidateState.getBlock() instanceof TentBlock)) return false;
+        if (!candidateState.hasProperty(TentBlock.PART)) return false;
+        BlockPos linkedHead = candidateState.getValue(TentBlock.PART) == BedPart.HEAD
+                ? candidate
+                : candidate.relative(candidateState.getValue(TentBlock.FACING));
+        return linkedHead.equals(headPos);
     }
 
     private static void writeBackup(Player player, ResourceKey<Level> dim, @Nullable BlockPos pos, float angle, boolean forced) {
