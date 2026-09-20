@@ -1,6 +1,8 @@
 package com.leclowndu93150.hlsubstance.block;
 
 import com.leclowndu93150.hlsubstance.spawn.TentSpawnTracker;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -19,20 +21,29 @@ import org.jetbrains.annotations.Nullable;
 
 public class TentBlock extends BedBlock {
 
+    public static final MapCodec<BedBlock> CODEC = RecordCodecBuilder.mapCodec(
+            instance -> instance.group(DyeColor.CODEC.fieldOf("color").forGetter(BedBlock::getColor), propertiesCodec())
+                    .apply(instance, TentBlock::new));
+
     public TentBlock(DyeColor color, BlockBehaviour.Properties properties) {
         super(color, properties);
     }
 
     @Override
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
-            notifyDestroyed(serverLevel, pos, state);
-        }
-        super.playerWillDestroy(level, pos, state, player);
+    public MapCodec<BedBlock> codec() {
+        return CODEC;
     }
 
     @Override
-    public void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+            notifyDestroyed(serverLevel, pos, state);
+        }
+        return super.playerWillDestroy(level, pos, state, player);
+    }
+
+    @Override
+    protected void onRemove(BlockState oldState, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if (!level.isClientSide && level instanceof ServerLevel serverLevel && !newState.is(this)) {
             notifyDestroyed(serverLevel, pos, oldState);
         }
@@ -53,17 +64,17 @@ public class TentBlock extends BedBlock {
     }
 
     @Override
-    public RenderShape getRenderShape(BlockState state) {
+    protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return TentShapes.get(state.getValue(PART), state.getValue(FACING));
     }
 
     @Override
-    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
+    protected VoxelShape getBlockSupportShape(BlockState state, BlockGetter level, BlockPos pos) {
         return TentShapes.getSupport(state.getValue(PART), state.getValue(FACING));
     }
 }

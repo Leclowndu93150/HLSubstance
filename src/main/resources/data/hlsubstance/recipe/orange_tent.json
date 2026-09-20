@@ -11,16 +11,17 @@
       "item": "minecraft:string"
     },
     "#": {
-      "item": "minecraft:cyan_carpet"
+      "item": "minecraft:orange_carpet"
     },
     "O": {
       "tag": "minecraft:wooden_fences"
     },
     "B": {
-      "item": "minecraft:cyan_bed"
+      "item": "minecraft:orange_bed"
     }
   },
   "result": {
-    "item": "hlsubstance:cyan_tent"
+    "id": "hlsubstance:orange_tent",
+    "count": 1
   }
 }

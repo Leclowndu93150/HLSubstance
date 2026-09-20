@@ -21,6 +21,7 @@
     }
   },
   "result": {
-    "item": "hlsubstance:blue_tent"
+    "id": "hlsubstance:blue_tent",
+    "count": 1
   }
 }

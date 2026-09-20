@@ -13,12 +13,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.jetbrains.annotations.Nullable;
 
-@Mod.EventBusSubscriber(modid = Hlsubstance.MODID)
+@EventBusSubscriber(modid = Hlsubstance.MODID)
 public final class TentSpawnTracker {
 
     private static final String BACKUP_TAG = "hlsubstance:tent_backup_spawn";
@@ -123,7 +123,7 @@ public final class TentSpawnTracker {
         if (!data.contains(BACKUP_TAG)) return null;
         CompoundTag tag = data.getCompound(BACKUP_TAG);
         ResourceKey<Level> dim = ResourceKey.create(Registries.DIMENSION,
-                new ResourceLocation(tag.getString(KEY_DIM)));
+                ResourceLocation.parse(tag.getString(KEY_DIM)));
         BlockPos pos = tag.contains(KEY_X)
                 ? new BlockPos(tag.getInt(KEY_X), tag.getInt(KEY_Y), tag.getInt(KEY_Z))
                 : null;

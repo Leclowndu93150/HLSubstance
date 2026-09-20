@@ -14,12 +14,12 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -29,39 +29,39 @@ public class Hlsubstance {
 
     public static final String MODID = "hlsubstance";
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
+    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final Map<DyeColor, RegistryObject<Block>> TENT_BLOCKS = new EnumMap<>(DyeColor.class);
-    public static final Map<DyeColor, RegistryObject<Item>> TENT_ITEMS = new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, DeferredBlock<Block>> TENT_BLOCKS = new EnumMap<>(DyeColor.class);
+    public static final Map<DyeColor, DeferredItem<Item>> TENT_ITEMS = new EnumMap<>(DyeColor.class);
 
     static {
         for (DyeColor color : DyeColor.values()) {
             String name = color.getName() + "_tent";
             Block vanillaBed = bedFor(color);
             if (vanillaBed == null) continue;
-            RegistryObject<Block> block = BLOCKS.register(name,
-                    () -> new TentBlock(color, BlockBehaviour.Properties.copy(vanillaBed)
+            DeferredBlock<Block> block = BLOCKS.register(name,
+                    () -> new TentBlock(color, BlockBehaviour.Properties.ofFullCopy(vanillaBed)
                             .mapColor(state -> state.getValue(TentBlock.PART) == BedPart.FOOT
                                     ? MapColor.WOOL
                                     : color.getMapColor())
                             .pushReaction(PushReaction.DESTROY)));
-            RegistryObject<Item> item = ITEMS.register(name,
+            DeferredItem<Item> item = ITEMS.register(name,
                     () -> new BedItem(block.get(), new Item.Properties().stacksTo(1)));
             TENT_BLOCKS.put(color, block);
             TENT_ITEMS.put(color, item);
         }
     }
 
-    public static final RegistryObject<CreativeModeTab> TAB = CREATIVE_MODE_TABS.register("tents",
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = CREATIVE_MODE_TABS.register("tents",
             () -> CreativeModeTab.builder()
                     .withTabsBefore(CreativeModeTabs.COMBAT)
                     .title(Component.translatable("itemGroup.hlsubstance.tents"))
                     .icon(() -> TENT_ITEMS.get(DyeColor.ORANGE).get().getDefaultInstance())
                     .displayItems((params, output) -> {
                         for (DyeColor color : DyeColor.values()) {
-                            RegistryObject<Item> item = TENT_ITEMS.get(color);
+                            DeferredItem<Item> item = TENT_ITEMS.get(color);
                             if (item != null) output.accept(item.get());
                         }
                     })
@@ -89,8 +89,7 @@ public class Hlsubstance {
         };
     }
 
-    public Hlsubstance() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public Hlsubstance(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
