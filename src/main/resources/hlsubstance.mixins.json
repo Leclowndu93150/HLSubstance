@@ -4,6 +4,7 @@
   "package": "com.leclowndu93150.hlsubstance.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ItemStackMixin",
     "ServerPlayerSetSpawnMixin",
     "SmithingMenuMixin"
   ],
