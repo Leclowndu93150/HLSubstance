@@ -1,6 +1,7 @@
 package com.leclowndu93150.hlsubstance;
 
 import com.leclowndu93150.hlsubstance.block.TentBlock;
+import com.leclowndu93150.hlsubstance.durability.DurabilityConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BedItem;
@@ -15,7 +16,9 @@ import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -94,5 +97,8 @@ public class Hlsubstance {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DurabilityConfig.SPEC);
+        modEventBus.addListener(DurabilityConfig::onLoad);
+        modEventBus.addListener(DurabilityConfig::onReload);
     }
 }

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "hlsubstance.refmap.json",
   "mixins": [
+    "ItemStackMixin",
     "ServerPlayerSetSpawnMixin",
     "SmithingMenuMixin"
   ],
