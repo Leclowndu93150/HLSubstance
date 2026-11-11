@@ -1,9 +1,12 @@
 package com.leclowndu93150.hlsubstance;
 
+import com.leclowndu93150.hlsubstance.attribute.FireResistance;
 import com.leclowndu93150.hlsubstance.block.TentBlock;
 import com.leclowndu93150.hlsubstance.durability.DurabilityConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.item.BedItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -35,6 +38,10 @@ public class Hlsubstance {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    public static final DeferredRegister<Attribute> ATTRIBUTES = DeferredRegister.create(Registries.ATTRIBUTE, MODID);
+
+    public static final DeferredHolder<Attribute, Attribute> FIRE_RESISTANCE = ATTRIBUTES.register("fire_resistance",
+            () -> new RangedAttribute("attribute.name.hlsubstance.fire_resistance", 0.0, 0.0, 1.0));
 
     public static final Map<DyeColor, DeferredBlock<Block>> TENT_BLOCKS = new EnumMap<>(DyeColor.class);
     public static final Map<DyeColor, DeferredItem<Item>> TENT_ITEMS = new EnumMap<>(DyeColor.class);
@@ -99,5 +106,7 @@ public class Hlsubstance {
         modContainer.registerConfig(ModConfig.Type.COMMON, DurabilityConfig.SPEC);
         modEventBus.addListener(DurabilityConfig::onLoad);
         modEventBus.addListener(DurabilityConfig::onReload);
+        ATTRIBUTES.register(modEventBus);
+        modEventBus.addListener(FireResistance::addToEntities);
     }
 }
