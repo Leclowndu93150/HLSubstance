@@ -1,6 +1,9 @@
 {
   "itemGroup.hlsubstance.tents": "HLSubstance",
   "attribute.name.hlsubstance.fire_resistance": "Fire Resistance",
+  "curios.identifier.hlsubstance_top": "Inventory (Top)",
+  "curios.identifier.hlsubstance_middle": "Inventory (Middle)",
+  "curios.identifier.hlsubstance_bottom": "Inventory (Bottom)",
   "block.hlsubstance.white_tent": "White Tent",
   "item.hlsubstance.white_tent": "White Tent",
   "block.hlsubstance.light_gray_tent": "Light Gray Tent",

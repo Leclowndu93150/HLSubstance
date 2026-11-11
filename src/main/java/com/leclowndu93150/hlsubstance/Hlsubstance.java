@@ -2,6 +2,8 @@ package com.leclowndu93150.hlsubstance;
 
 import com.leclowndu93150.hlsubstance.attribute.FireResistance;
 import com.leclowndu93150.hlsubstance.block.TentBlock;
+import com.leclowndu93150.hlsubstance.curios.InventoryCurioValidator;
+import com.leclowndu93150.hlsubstance.curios.InventoryCuriosConfig;
 import com.leclowndu93150.hlsubstance.durability.DurabilityConfig;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -108,5 +110,9 @@ public class Hlsubstance {
         modEventBus.addListener(DurabilityConfig::onReload);
         ATTRIBUTES.register(modEventBus);
         modEventBus.addListener(FireResistance::addToEntities);
+        modContainer.registerConfig(ModConfig.Type.SERVER, InventoryCuriosConfig.SPEC);
+        modEventBus.addListener(InventoryCuriosConfig::onLoad);
+        modEventBus.addListener(InventoryCuriosConfig::onReload);
+        modEventBus.addListener(InventoryCurioValidator::register);
     }
 }

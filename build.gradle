@@ -122,6 +122,8 @@ configurations {
 }
 
 dependencies {
+    implementation "curse.maven:curios-309927:6529130"
+
     // JEI for in-development testing only, not published as a dependency
     localRuntime "curse.maven:jei-238222:8929207"
     localRuntime "curse.maven:mezzconfig-1689768:8928631"

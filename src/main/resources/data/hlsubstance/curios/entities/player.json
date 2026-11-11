@@ -1,0 +1,10 @@
+{
+  "entities": [
+    "player"
+  ],
+  "slots": [
+    "hlsubstance_top",
+    "hlsubstance_middle",
+    "hlsubstance_bottom"
+  ]
+}
