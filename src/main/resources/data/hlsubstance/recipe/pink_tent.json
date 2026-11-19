@@ -1,27 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "show_notification": false,
   "pattern": [
-    "~#~",
-    "#O#",
-    "#B#"
+    " / ",
+    "#P#"
   ],
   "key": {
-    "~": {
-      "item": "minecraft:string"
+    "/": {
+      "item": "minecraft:stick"
     },
     "#": {
-      "item": "minecraft:pink_carpet"
+      "item": "minecraft:pink_wool"
     },
-    "O": {
-      "tag": "minecraft:wooden_fences"
-    },
-    "B": {
-      "item": "minecraft:pink_bed"
+    "P": {
+      "tag": "minecraft:beds"
     }
   },
   "result": {
-    "id": "hlsubstance:pink_tent",
-    "count": 1
+    "id": "hlsubstance:pink_tent"
   }
 }

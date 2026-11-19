@@ -6,7 +6,7 @@
   ],
   "textures": {
     "2": "hlsubstance:block/light_blue_tent",
-    "particle": "hlsubstance:block/light_blue_tent"
+    "particle": "minecraft:block/light_blue_wool"
   },
   "elements": [
     {

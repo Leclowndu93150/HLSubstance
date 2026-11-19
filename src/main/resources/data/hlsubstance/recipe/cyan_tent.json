@@ -1,27 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "show_notification": false,
   "pattern": [
-    "~#~",
-    "#O#",
-    "#B#"
+    " / ",
+    "#C#"
   ],
   "key": {
-    "~": {
-      "item": "minecraft:string"
+    "/": {
+      "item": "minecraft:stick"
     },
     "#": {
-      "item": "minecraft:cyan_carpet"
+      "item": "minecraft:cyan_wool"
     },
-    "O": {
-      "tag": "minecraft:wooden_fences"
-    },
-    "B": {
-      "item": "minecraft:cyan_bed"
+    "C": {
+      "tag": "minecraft:beds"
     }
   },
   "result": {
-    "id": "hlsubstance:cyan_tent",
-    "count": 1
+    "id": "hlsubstance:cyan_tent"
   }
 }

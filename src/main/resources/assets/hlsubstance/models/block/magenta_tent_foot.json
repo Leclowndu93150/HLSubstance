@@ -6,7 +6,7 @@
   ],
   "textures": {
     "2": "hlsubstance:block/magenta_tent",
-    "particle": "hlsubstance:block/magenta_tent"
+    "particle": "minecraft:block/mangenta_wool"
   },
   "elements": [
     {

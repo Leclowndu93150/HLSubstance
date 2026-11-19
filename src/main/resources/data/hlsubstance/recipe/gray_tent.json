@@ -1,27 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "show_notification": false,
   "pattern": [
-    "~#~",
-    "#O#",
-    "#B#"
+    " / ",
+    "#G#"
   ],
   "key": {
-    "~": {
-      "item": "minecraft:string"
+    "/": {
+      "item": "minecraft:stick"
     },
     "#": {
-      "item": "minecraft:gray_carpet"
+      "item": "minecraft:gray_wool"
     },
-    "O": {
-      "tag": "minecraft:wooden_fences"
-    },
-    "B": {
-      "item": "minecraft:gray_bed"
+    "G": {
+      "tag": "minecraft:beds"
     }
   },
   "result": {
-    "id": "hlsubstance:gray_tent",
-    "count": 1
+    "id": "hlsubstance:gray_tent"
   }
 }

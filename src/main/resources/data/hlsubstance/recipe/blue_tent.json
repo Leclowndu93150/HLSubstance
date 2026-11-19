@@ -1,27 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "show_notification": false,
   "pattern": [
-    "~#~",
-    "#O#",
+    " / ",
     "#B#"
   ],
   "key": {
-    "~": {
-      "item": "minecraft:string"
+    "/": {
+      "item": "minecraft:stick"
     },
     "#": {
-      "item": "minecraft:blue_carpet"
-    },
-    "O": {
-      "tag": "minecraft:wooden_fences"
+      "item": "minecraft:blue_wool"
     },
     "B": {
-      "item": "minecraft:blue_bed"
+      "tag": "minecraft:beds"
     }
   },
   "result": {
-    "id": "hlsubstance:blue_tent",
-    "count": 1
+    "id": "hlsubstance:blue_tent"
   }
 }

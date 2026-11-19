@@ -6,7 +6,7 @@
   ],
   "textures": {
     "2": "hlsubstance:block/white_tent",
-    "particle": "hlsubstance:block/white_tent"
+    "particle": "minecraft:block/white_wool"
   },
   "elements": [
     {
